@@ -8,5 +8,6 @@ export const usePokemonStore = create((set, get) => ({
         const data = await res.json()
 
         set({pokemons: data})
+        return data
     }
 }))
