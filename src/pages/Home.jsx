@@ -1,11 +1,11 @@
-import styled from 'styled-components'
 import { usePokemonStore } from '../store/PokemonStore'
 import { useQuery } from '@tanstack/react-query'
 import { BeatLoader } from "react-spinners";
+import { HomeTemplate } from '../components/templates/HomeTemplate';
 
 export const Home = () => {
-    const {pokemons, fethPokemons} = usePokemonStore()
-      const {isLoading, isError, data , error} = useQuery({
+    const { fethPokemons} = usePokemonStore()
+      const {isLoading, isError, error} = useQuery({
         queryKey:["mostrar pokemons"],
         queryFn: fethPokemons
       })
@@ -19,16 +19,6 @@ export const Home = () => {
     }
 
   return (
-    <Container className="">
-        {
-            pokemons.results.map((item, index) => (
-                <h4 key={index}>{item.name}</h4>
-            ))
-        }
-    </Container>
+    <HomeTemplate />
   )
 }
-
-const Container = styled.div`
-
-`
