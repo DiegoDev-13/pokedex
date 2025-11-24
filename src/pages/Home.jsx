@@ -11,12 +11,6 @@ export const Home = () => {
       })
 
   return (
-    <div>
-    <div>
-      <span>Hola world</span>
-    </div>
-      <HomeTemplate />
-
-    </div>
+    <HomeTemplate />
   )
 }

@@ -1,10 +1,9 @@
 import styled from "styled-components"
-import { ListaPokemons } from "../organismos/ListaPokemons"
 
 export const HomeTemplate = () => {
   return (
     <Container className="">
-        <ListaPokemons />
+        <span>sss</span>
     </Container>
   )
 }
