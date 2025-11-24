@@ -1,13 +1,34 @@
 import styled from "styled-components"
 import { usePokemonStore } from "../../store/PokemonStore"
 import { CardPokemonList } from "../moleculas/CardPokemonList"
+import {useQueryClient} from "@tanstack/react-query"
+import { BeatLoader } from "react-spinners";
 
 export const ListaPokemons = () => {
 
   const {pokemons} = usePokemonStore()
 
-  return (
+  const queryClient = useQueryClient()
+
+  const queryState = queryClient.getQueryState(["mostrar pokemon"])
+  const status = queryState?.status
+  const error = queryState?.error
+
+  if(status === 'pending') {
+    return <BeatLoader color="#fff" />
+  }
+
+  
+
+  if (status === 'error') {
+    return <span>Error: {error.message}</span>
+  }
+
+  if(status === 'success') {
+    return (
     <Container className="">
+      <button onClick={() => queryClient.invalidateQueries("mostrar pokemons")}>Refetch</button>
+
         {
           pokemons.results.map((item, index) => (
             <div key={index}>
@@ -17,6 +38,9 @@ export const ListaPokemons = () => {
         }
     </Container>
   )
+  }
+
+
 }
 
 const Container = styled.div`

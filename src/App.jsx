@@ -3,7 +3,16 @@ import { QueryClient, QueryClientProvider, useQuery,} from '@tanstack/react-quer
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { MyRouters } from './routes/Router'
 
-const queryclient = new QueryClient()
+const queryclient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: Infinity,
+
+    }
+  }
+});
+
 
 function App() {
   return (
