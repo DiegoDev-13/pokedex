@@ -1,11 +1,19 @@
 import styled from "styled-components";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { usePokemonStore } from "../../store/PokemonStore";
 export function Buscador() {
+
+  const {setBuscador} = usePokemonStore()
+
+  const buscar = (e) => {
+    setBuscador(e.target.value)
+  }
+
   return (
     <Container>
       <section className="content">
         <Icon className="icono" icon="ic:twotone-search" />
-        <input placeholder="...buscar" />
+        <input onChange={buscar} placeholder="...buscar" />
       </section>
     </Container>
   );
