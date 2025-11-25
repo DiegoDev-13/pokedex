@@ -1,9 +1,10 @@
 import styled from "styled-components"
+import { Header } from "../organismos/Header"
 
 export const HomeTemplate = () => {
   return (
     <Container className="">
-        <span>sss</span>
+        <Header />
     </Container>
   )
 }
