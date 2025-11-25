@@ -5,15 +5,17 @@ import {GlobalStyles} from './styles/GlobalStyles'
 import {ThemeProvider} from 'styled-components'
 import { useThemeStore } from './store/ThemeStore'
 
-const queryclient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      staleTime: Infinity,
-    }
-  }
-});
+const queryclient = new QueryClient();
 
+
+// const queryclient = new QueryClient({
+//   defaultOptions: {
+//     queries: {
+//       refetchOnWindowFocus: false,
+//       staleTime: Infinity,
+//     }
+//   }
+// });
 
 function App() {
   const {themeStyle} = useThemeStore()

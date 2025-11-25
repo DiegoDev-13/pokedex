@@ -1,16 +1,25 @@
 import styled from "styled-components"
+import { usePokemonStore } from "../../store/PokemonStore"
+import { Icon } from "@iconify/react"
 
-export const CardPokemonList = ({item}) => {
+export const CardPokemonBuscardor = ({item}) => {
+
+    const {pokemonBuscado} = usePokemonStore()
+
+    if(pokemonBuscado === null || (Array.isArray(pokemonBuscado) && pokemonBuscado.length === 0)) return (<Icon style={{fontSize:80}} icon="fluent-emoji-flat:avocado" width="32" height="32" />)
+
+        
+
   return (
-    <Container className="" color="red">
-         <Number color="#7dec1c">#004</Number>
+    <Container className="" color={pokemonBuscado.color}>
+         <Number color="#7dec1c">{pokemonBuscado.id}</Number>
          <ImageWrapper>
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg" alt="" />
+            <img src={pokemonBuscado.image} alt="" />
          </ImageWrapper>
          <Name>
-            nombre
+            {pokemonBuscado.name}
          </Name>
-         <SmallImage src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"/>
+         <SmallImage src={pokemonBuscado.animation}/>
     </Container>
   )
 }

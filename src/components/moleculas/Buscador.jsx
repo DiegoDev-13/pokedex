@@ -5,6 +5,7 @@ export function Buscador() {
 
   const {setBuscador} = usePokemonStore()
 
+
   const buscar = (e) => {
     setBuscador(e.target.value)
   }
