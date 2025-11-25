@@ -9,5 +9,20 @@ export const usePokemonStore = create((set, get) => ({
 
         set({pokemons: data})
         return data
+    },
+    pokemonBuscado: [],
+    buscarPokemon: async (buscador) => {
+        const endpoint = `https://pokeapi.co/api/v2/pokemon/${buscador.toLowerCase()}`
+        try {
+            const res = await fetch(endpoint)
+            if(!res.ok) {
+                throw new Error('Pokemon no encontrado')
+            }
+            const data = await res.json()
+            set({pokemonBuscado: data})
+            return data;
+        } catch (error) {
+            set({pokemonBuscado:null})
+        }
     }
 }))
