@@ -27,15 +27,15 @@ export const ListaPokemons = () => {
   if(status === 'success') {
     return (
     <Container className="">
-      <button onClick={() => queryClient.invalidateQueries("mostrar pokemons")}>Refetch</button>
-
         {
-          pokemons.results.map((item, index) => (
+          pokemons.map((item, index) => (
             <div key={index}>
               <CardPokemonList item={item} />
             </div>
           ))
         }
+
+        <button>Ver Mas</button>
     </Container>
   )
   }

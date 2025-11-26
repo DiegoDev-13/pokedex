@@ -3,14 +3,24 @@ import { create } from "zustand";
 export const usePokemonStore = create((set, get) => ({
     pokemons:[],
     fethPokemons:async ({pageParam = 0}) => {
+        const {fetchPokemonDetails} = get()
         const limit = 10
         const offset = pageParam * limit
+
         const endpoint = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
         const res = await fetch(endpoint)
         const data = await res.json()
+        const pokemonsDetailsPromise = data.results.map(async (pokemon) => {
+            const details = await fetchPokemonDetails(pokemon.url)
+            return {
+                ...pokemon, ...details
+            }
+        })
 
-        set({pokemons: data})
-        return data
+        const detailsPokemons = await Promise.all(pokemonsDetailsPromise)
+
+        set({pokemons: detailsPokemons})
+        return detailsPokemons
     },
     fetchPokemonDetails: async (url) => {
         const res = await fetch(url)

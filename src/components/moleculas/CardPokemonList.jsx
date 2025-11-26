@@ -2,15 +2,15 @@ import styled from "styled-components"
 
 export const CardPokemonList = ({item}) => {
   return (
-    <Container className="" color="red">
-         <Number color="#7dec1c">#004</Number>
+    <Container className="" color={item.color}>
+         <Number color={item.color}>{item.id}</Number>
          <ImageWrapper>
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg" alt="" />
+            <img src={item.image} alt="" />
          </ImageWrapper>
          <Name>
-            nombre
+            {item.name}
          </Name>
-         <SmallImage src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"/>
+         <SmallImage src={item.animation}/>
     </Container>
   )
 }
@@ -19,6 +19,7 @@ const Container = styled.div`
     background-color: #192438; 
     border-radius: 10px;
     width: 200px;
+    min-height: 320px;
     padding: 20px;
     text-align: center;
     color: white;
