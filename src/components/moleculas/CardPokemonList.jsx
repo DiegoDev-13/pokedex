@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { usePokemonFavoritos } from "../../store/pokemonFavoritosStore"
 
 export const CardPokemonList = ({item}) => {
   return (

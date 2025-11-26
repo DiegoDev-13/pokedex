@@ -1,13 +1,27 @@
 import styled from "styled-components"
 import { usePokemonStore } from "../../store/PokemonStore"
+import { usePokemonFavoritos } from "../../store/PokemonFavoritosStore"
 import { CardPokemonList } from "../moleculas/CardPokemonList"
 import {useInfiniteQuery, useQueryClient} from "@tanstack/react-query"
 import { BeatLoader } from "react-spinners";
+import {Heart} from "../moleculas/Heart"
 
 export const ListaPokemons = () => {
 
   const {pokemons, fethPokemons} = usePokemonStore()
+  const {favorites, addFavorite, removeFavorite} = usePokemonFavoritos()
 
+  //Funtion add favorites
+  const handleFavoriteClick = (pokemon) => {
+    const isFavorite = favorites.some((fav) => fav.id === pokemon.id);
+    if(isFavorite) {
+      removeFavorite(pokemon.id)
+    } else {
+      addFavorite(pokemon)
+    }
+  }
+
+  //Uso de infiniteQuery
   const {hasNextPage, fetchNextPage, isFetchingNextPage} = useInfiniteQuery({
         queryKey:["mostrar pokemon"],
         queryFn: fethPokemons,
@@ -33,16 +47,23 @@ export const ListaPokemons = () => {
     return <span>Error: {error.message}</span>
   }
 
+  
+
   if(status === 'success') {
     return (
     <Container className="">
         <section className="contentpokemon">
           {
-          pokemons.map((item, index) => (
-            <div key={index}>
-              <CardPokemonList item={item} />
-            </div>
-          ))
+          pokemons.map((item, index) => {
+            const isFavorite = favorites.some((favorites) => favorites.id === item.id)
+
+            return (
+              <div key={index} className="contentCard">
+                <Heart state={isFavorite} funcion={() => handleFavoriteClick(item)}/>
+                <CardPokemonList item={item} />
+              </div>
+            )
+          })
         }
         </section>
 
@@ -81,5 +102,9 @@ const Container = styled.div`
     justify-content: center;
     gap: 20px;
     width: 100%;
+
+    .contentCard {
+      position: relative;
+    }
   } 
 `

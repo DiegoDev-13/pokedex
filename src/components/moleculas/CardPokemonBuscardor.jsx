@@ -6,7 +6,7 @@ export const CardPokemonBuscardor = ({item}) => {
 
     const {pokemonBuscado} = usePokemonStore()
 
-    if(pokemonBuscado === null || (Array.isArray(pokemonBuscado) && pokemonBuscado.length === 0)) return (<Icon style={{fontSize:80}} icon="fluent-emoji-flat:avocado" />)
+    if(pokemonBuscado === null || (Array.isArray(pokemonBuscado) && pokemonBuscado.length === 0)) return (<Icon style={{fontSize:80}} icon="fluent-emoji-flat:avocado"/>)
 
         
 
