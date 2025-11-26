@@ -2,8 +2,15 @@ import { create } from "zustand";
 
 export const usePokemonStore = create((set, get) => ({
     pokemons:[],
+    pokemonCount: 0,
+    addPokemons: (newPokemons) => {
+        set((state) => ({
+            pokemons:[...state.pokemons, ...newPokemons],
+            pokemonCount: state.pokemons.length + newPokemons.length
+        }))
+    },
     fethPokemons:async ({pageParam = 0}) => {
-        const {fetchPokemonDetails} = get()
+        const {fetchPokemonDetails, addPokemons} = get()
         const limit = 10
         const offset = pageParam * limit
 
@@ -19,8 +26,13 @@ export const usePokemonStore = create((set, get) => ({
 
         const detailsPokemons = await Promise.all(pokemonsDetailsPromise)
 
-        set({pokemons: detailsPokemons})
-        return detailsPokemons
+        // set({pokemons: detailsPokemons})
+        addPokemons(detailsPokemons)
+        return {
+            results: detailsPokemons,
+            nextPage: pageParam + 1,
+            hasNextPage: detailsPokemons.length === limit
+        }
     },
     fetchPokemonDetails: async (url) => {
         const res = await fetch(url)

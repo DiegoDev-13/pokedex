@@ -1,12 +1,21 @@
 import styled from "styled-components"
 import { usePokemonStore } from "../../store/PokemonStore"
 import { CardPokemonList } from "../moleculas/CardPokemonList"
-import {useQueryClient} from "@tanstack/react-query"
+import {useInfiniteQuery, useQueryClient} from "@tanstack/react-query"
 import { BeatLoader } from "react-spinners";
 
 export const ListaPokemons = () => {
 
-  const {pokemons} = usePokemonStore()
+  const {pokemons, fethPokemons} = usePokemonStore()
+
+  const {hasNextPage, fetchNextPage, isFetchingNextPage} = useInfiniteQuery({
+        queryKey:["mostrar pokemon"],
+        queryFn: fethPokemons,
+        getNextPageParam: (lastPage) => lastPage.hasNextPage?lastPage.nextPage:undefined,
+        initialPageParam: 0,
+        refetchOnWindowFocus: false
+      })
+
 
   const queryClient = useQueryClient()
 
@@ -27,15 +36,17 @@ export const ListaPokemons = () => {
   if(status === 'success') {
     return (
     <Container className="">
-        {
+        <section className="contentpokemon">
+          {
           pokemons.map((item, index) => (
             <div key={index}>
               <CardPokemonList item={item} />
             </div>
           ))
         }
+        </section>
 
-        <button>Ver Mas</button>
+        <button disabled={!hasNextPage || isFetchingNextPage} onClick={fetchNextPage}>{isFetchingNextPage?"Cargando...":hasNextPage?"Cargar Mas":"Fin de Pokemons"}</button>
     </Container>
   )
   }
@@ -49,4 +60,26 @@ const Container = styled.div`
   flex-wrap: wrap;
   width: 100%;
   justify-content: center;
+  button{
+    padding: 10px 20px;
+    border: none;
+    background-color: #2d3748;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 50%;
+    align-self: center;
+    &:disabled {
+      background-color: #a0aec0;
+      cursor: not-allowed;
+      }
+    }
+    
+  .contentpokemon{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+  } 
 `
