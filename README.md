@@ -1,16 +1,18 @@
-# React + Vite
+# Pokédex con React + TanStack Query
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una Pokédex interactiva construida con React y TanStack Query (antes React Query), que permite explorar, buscar y guardar tus Pokémon favoritos. Este proyecto consume datos en tiempo real desde la PokéAPI y ofrece una experiencia fluida y moderna.
 
-Currently, two official plugins are available:
+🚀 Funcionalidades
+- 🔍 Búsqueda de Pokémon por nombre
+- ❤️ Agregar y quitar favoritos
+- 💾 Persistencia de favoritos con LocalStorage
+- ⚡ Consultas eficientes con TanStack Query
+- 🧹 Botón para limpiar resultados
+- 🖼️ Interfaz visual tipo carta con imágenes y numeración
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🛠️ Tecnologías utilizadas
+- React
+- Zustand
+- TanStack Query
+- PokéAPI
+- LocalStorage para persistencia
